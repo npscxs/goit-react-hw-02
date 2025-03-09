@@ -1,4 +1,3 @@
-import updateFeedback from "../App/App";
 export default function Options({
   updateFeedback,
   totalFeedback,

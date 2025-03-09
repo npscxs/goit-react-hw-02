@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Description from "../Description/Description";
 import Feedback from "../Feedback/Feedback";
@@ -6,7 +6,19 @@ import Options from "../Options/Options";
 import Notification from "../Notification/Notification";
 
 function App() {
-  const [stats, setStats] = useState({ good: 0, neutral: 0, bad: 0 });
+  const [stats, setStats] = useState(() => {
+    const localStats = window.localStorage.getItem("stats");
+    if (localStats !== null) {
+      return JSON.parse(localStats);
+    } else {
+      return { good: 0, neutral: 0, bad: 0 };
+    }
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("stats", JSON.stringify(stats));
+  });
+
   const updateFeedback = (feedbackType) => {
     setStats((prevState) => ({
       ...prevState,
