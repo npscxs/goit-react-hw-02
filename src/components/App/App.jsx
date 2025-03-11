@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     window.localStorage.setItem("stats", JSON.stringify(stats));
-  });
+  }, [stats]);
 
   const updateFeedback = (feedbackType) => {
     setStats((prevState) => ({
@@ -32,9 +32,7 @@ function App() {
 
   const totalFeedback = stats.good + stats.neutral + stats.bad;
 
-  const percentGoodFeedback = Math.round(
-    ((stats.good + stats.neutral) / totalFeedback) * 100
-  );
+  const percentGoodFeedback = Math.round((stats.good / totalFeedback) * 100);
 
   return (
     <div>
